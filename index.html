@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Art Gallery</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>My Art Gallery</h1>
+    </header>
+    <main>
+      <div class="gallery" id="gallery">
+        <!-- Die Galerie-Elemente werden dynamisch mit JavaScript eingefügt -->
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2023 My Art Gallery</p>
+    </footer>
+
+    <!-- Modal Window -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <img id="modal-image" src="" alt="" />
+        <h2 id="modal-title"></h2>
+        <p id="modal-artist"></p>
+        <p>
+          <a id="modal-twitter" href="#" target="_blank">Twitter</a> |
+          <a id="modal-website" href="#" target="_blank">Website</a> |
+          <a id="modal-marketplace" href="#" target="_blank">Marketplace</a>
+        </p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

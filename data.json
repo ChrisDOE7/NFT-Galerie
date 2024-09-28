@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Thief",
+    "artist": "YNS",
+    "image": "images/Thief.jpg",
+    "twitter": "https://x.com/yns_gh",
+    "website": "https://linktr.ee/YNSGH",
+    "marketplace": "https://exchange.art/yns/nfts"
+  },
+  {
+    "title": "Artwork 2",
+    "artist": "Artist Name 2",
+    "image": "images/artwork2.jpg",
+    "twitter": "https://twitter.com/artist2",
+    "website": "https://www.artist2website.com",
+    "marketplace": "https://www.marketplace.com/artist2"
+  }
+]

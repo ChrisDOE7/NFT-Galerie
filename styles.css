@@ -1,0 +1,101 @@
+/* Grundlegendes Styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #2b004f; /* Dunkles königs-lila */
+  color: #ffffff;
+}
+
+header,
+footer {
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  margin: 0;
+}
+
+/* Galerie-Layout */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+.gallery-item {
+  margin: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  max-width: 200px;
+  border: 2px solid transparent;
+  transition: border 0.2s, transform 0.2s;
+}
+
+.gallery-item h2 {
+  font-size: 1em;
+  margin: 10px 0 0 0;
+}
+
+/* Hover-Effekt */
+.gallery-item:hover img {
+  border: 2px solid orange;
+  transform: rotate(5deg);
+}
+
+/* Modal Window */
+.modal {
+  display: none; /* Standardmäßig versteckt */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: #2b004f;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  color: #ffffff;
+  position: relative;
+}
+
+.close-button {
+  color: #ffffff;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-content img {
+  max-width: 100%;
+}
+
+.modal-content h2,
+.modal-content p {
+  text-align: center;
+}
+
+/* Responsives Design */
+@media (max-width: 600px) {
+  .gallery-item img {
+    max-width: 100px;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+}
