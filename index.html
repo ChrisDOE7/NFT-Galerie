@@ -7,7 +7,7 @@
   </head>
   <body>
     <header>
-      <h1>My Art Gallery</h1>
+      <h1>w1llyw0nka's Gallery</h1>
     </header>
     <main>
       <div class="gallery" id="gallery">
@@ -22,14 +22,35 @@
     <div id="modal" class="modal">
       <div class="modal-content">
         <span class="close-button">&times;</span>
-        <img id="modal-image" src="" alt="" />
-        <h2 id="modal-title"></h2>
-        <p id="modal-artist"></p>
-        <p>
-          <a id="modal-twitter" href="#" target="_blank">Twitter</a> |
-          <a id="modal-website" href="#" target="_blank">Website</a> |
-          <a id="modal-marketplace" href="#" target="_blank">Marketplace</a>
-        </p>
+        <div class="modal-body">
+          <div class="modal-image-container">
+            <img
+              id="modal-image"
+              src="images/placeholder.jpg"
+              alt="Artwork image"
+            />
+            <a id="market-button" href="#" target="_blank">MARKETPLACE</a>
+          </div>
+          <div class="modal-info">
+            <h2 id="modal-title"></h2>
+            <p id="modal-artist"></p>
+            <p id="modal-nft-info"></p>
+            <div id="modal-social-links" class="social-links">
+              <a id="modal-twitter" href="#" target="_blank"
+                ><img src="icons/twitter.png" alt="Twitter"
+              /></a>
+              <a id="modal-instagram" href="#" target="_blank"
+                ><img src="icons/instagram.png" alt="Instagram"
+              /></a>
+              <a id="modal-website" href="#" target="_blank"
+                ><img src="icons/website.png" alt="Website"
+              /></a>
+            </div>
+            <div id="modal-marketplaces" class="marketplaces">
+              <!-- Marktplatz-Links werden dynamisch eingefügt -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

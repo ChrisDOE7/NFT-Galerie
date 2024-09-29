@@ -9,9 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalImage = document.getElementById("modal-image");
   const modalTitle = document.getElementById("modal-title");
   const modalArtist = document.getElementById("modal-artist");
+  const modalNftInfo = document.getElementById("modal-nft-info");
   const modalTwitter = document.getElementById("modal-twitter");
   const modalWebsite = document.getElementById("modal-website");
-  const modalMarketplace = document.getElementById("modal-marketplace");
+  const modalMarketplaces = document.getElementById("modal-marketplaces"); // Hinzugefügt
 
   // Funktion zum Laden der Galerie
   function loadGallery() {
@@ -23,14 +24,22 @@ document.addEventListener("DOMContentLoaded", function () {
           const galleryItem = document.createElement("div");
           galleryItem.classList.add("gallery-item");
           galleryItem.dataset.artist = item.artist;
+          galleryItem.dataset.nftinfo = item.nftInfo;
           galleryItem.dataset.twitter = item.twitter;
+          galleryItem.dataset.instagram = item.instagram;
           galleryItem.dataset.website = item.website;
           galleryItem.dataset.marketplace = item.marketplace;
+          galleryItem.dataset.exchange = item.exchange;
+          galleryItem.dataset.mallow = item.mallow;
+          galleryItem.dataset.foster = item.foster;
+          galleryItem.dataset.foundation = item.foundation;
+          galleryItem.dataset.objkt = item.objkt;
+          galleryItem.dataset.zora = item.zora;
 
           galleryItem.innerHTML = `
-                        <img src="${item.image}" alt="${item.title}">
-                        <h2>${item.title}</h2>
-                    `;
+                          <img src="${item.image}" alt="${item.title}">
+                          <h2>${item.title}</h2>
+                      `;
 
           galleryItem.addEventListener("click", openModal);
 
@@ -40,29 +49,82 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => console.error("Error loading gallery:", error));
   }
 
-  // Funktion zum Öffnen des Modals
   function openModal(event) {
     const item = event.currentTarget;
     const imgSrc = item.querySelector("img").src;
     const title = item.querySelector("h2").innerText;
     const artist = item.dataset.artist;
+    const nftInfo = item.dataset.nftinfo;
     const twitter = item.dataset.twitter;
+    const instagram = item.dataset.instagram;
     const website = item.dataset.website;
     const marketplace = item.dataset.marketplace;
+    const exchange = item.dataset.exchange;
+    const mallow = item.dataset.mallow;
+    const foster = item.dataset.foster;
+    const foundation = item.dataset.foundation;
+    const objkt = item.dataset.objkt;
+    const zora = item.dataset.zora;
 
     modalImage.src = imgSrc;
     modalTitle.innerText = title;
     modalArtist.innerText = "Artist: " + artist;
-    modalTwitter.href = twitter;
-    modalWebsite.href = website;
-    modalMarketplace.href = marketplace;
+    modalNftInfo.innerText = "NFT Info: " + nftInfo;
 
-    modal.style.display = "block";
+    // Social Media Links
+    updateSocialLink("modal-twitter", twitter);
+    updateSocialLink("modal-instagram", instagram);
+    updateSocialLink("modal-website", website);
+
+    // 'MARKET'-Button aktualisieren
+    const marketButton = document.getElementById("market-button");
+    marketButton.href = marketplace;
+
+    // Marktplatz-Links aktualisieren
+    updateMarketplaces({
+      exchange,
+      mallow,
+      foster,
+      foundation,
+      objkt,
+      zora,
+    });
+
+    modal.classList.add("show");
+  }
+
+  // Funktion zum Aktualisieren der Social Media Links
+  function updateSocialLink(elementId, url) {
+    const linkElement = document.getElementById(elementId);
+    if (url) {
+      linkElement.style.display = "inline-block";
+      linkElement.href = url;
+    } else {
+      linkElement.style.display = "none";
+    }
+  }
+
+  // Funktion zum Aktualisieren der Marktplatz-Links
+  function updateMarketplaces(marketplaces) {
+    modalMarketplaces.innerHTML = ""; // Vorherige Inhalte entfernen
+
+    for (const [marketplaceName, url] of Object.entries(marketplaces)) {
+      if (url) {
+        const link = document.createElement("a");
+        link.href = url;
+        link.target = "_blank";
+        const img = document.createElement("img");
+        img.src = `icons/${marketplaceName}.png`;
+        img.alt = marketplaceName;
+        link.appendChild(img);
+        modalMarketplaces.appendChild(link);
+      }
+    }
   }
 
   // Funktion zum Schließen des Modals
   function closeModal() {
-    modal.style.display = "none";
+    modal.classList.remove("show");
   }
 
   // Event Listener für die Schließen-Schaltfläche
