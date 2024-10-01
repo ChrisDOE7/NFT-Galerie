@@ -2,16 +2,48 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #2b004f; /* Dunkles Königs-Lila */
+  background-color: black; /* Dunkles Königs-Lila */
   color: #ffffff;
 }
 
-header,
-footer {
-  text-align: center;
+header {
+  font-family: "Bodoni Moda", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1.3em;
+  text-align: right;
   padding: 20px;
+  background: linear-gradient(to right, black, #22003e);
+}
+footer {
+  font-family: "Bodoni Moda", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1.3em;
+  text-align: left;
+  padding: 20px;
+  background: linear-gradient(to right, #fdb430, black);
+  color: black;
 }
 
+a {
+  color: #ffa500;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+.highlight {
+  font-family: monospace;
+  color: #fdb430;
+  font-size: 1.5em;
+  transform: rotate(5deg);
+}
 h1 {
   margin: 0;
 }
@@ -21,18 +53,18 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 20px;
+  padding: 30px;
 }
 
 .gallery-item {
-  margin: 10px;
+  margin: 20px;
   text-align: center;
   cursor: pointer;
 }
 
 /* Bilder in der Galerie */
 .gallery-item img {
-  max-width: 200px;
+  max-width: 300px;
   border: 2px solid transparent;
   transition: border 0.2s, transform 0.2s, box-shadow 0.2s;
   border-radius: 10px; /* Abgerundete Ecken */
@@ -40,7 +72,10 @@ h1 {
 }
 
 .gallery-item h2 {
-  font-size: 1em;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 2em;
   margin: 10px 0 0 0;
 }
 
@@ -72,9 +107,9 @@ h1 {
 
 /* Modal Content */
 .modal-content {
-  background-color: #2b004f;
+  background-color: black;
   padding: 20px;
-  border: 1px solid #888;
+  border: 2px solid #fdb430;
   border-radius: 10px;
   width: 90%;
   max-width: 800px; /* Maximale Breite des Modals */
@@ -102,7 +137,13 @@ h1 {
   align-items: flex-start;
 }
 
-#modal-title,
+#modal-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3em;
+}
+
 #modal-artist {
   color: #fdb430;
 }

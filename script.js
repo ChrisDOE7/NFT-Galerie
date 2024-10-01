@@ -68,8 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     modalImage.src = imgSrc;
     modalTitle.innerText = title;
-    modalArtist.innerText = "Artist: " + artist;
-    modalNftInfo.innerText = "NFT Info: " + nftInfo;
+    modalArtist.innerText = "by " + artist;
+    modalNftInfo.innerText = nftInfo;
 
     // Social Media Links
     updateSocialLink("modal-twitter", twitter);
@@ -108,18 +108,29 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateMarketplaces(marketplaces) {
     modalMarketplaces.innerHTML = ""; // Vorherige Inhalte entfernen
 
-    for (const [marketplaceName, url] of Object.entries(marketplaces)) {
+    for (const [marketplaceKey, url] of Object.entries(marketplaces)) {
       if (url) {
         const link = document.createElement("a");
         link.href = url;
         link.target = "_blank";
-        const img = document.createElement("img");
-        img.src = `icons/${marketplaceName}.png`;
-        img.alt = marketplaceName;
-        link.appendChild(img);
+        // Marktplatzname formatieren
+        const marketplaceName = formatMarketplaceName(marketplaceKey);
+        link.textContent = marketplaceName;
         modalMarketplaces.appendChild(link);
       }
     }
+  }
+
+  function formatMarketplaceName(key) {
+    const marketplaceNames = {
+      exchange: "Exchange",
+      mallow: "Mallow",
+      foster: "Foster",
+      foundation: "Foundation",
+      objkt: "Objkt",
+      zora: "Zora",
+    };
+    return marketplaceNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
   }
 
   // Funktion zum Schließen des Modals
