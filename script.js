@@ -112,17 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
             <h2>${item.title}</h2>
           `;
 
-          // Add event listeners for hover effects
-          galleryItem.addEventListener("mouseenter", () => {
-            galleryItem.classList.add("hovered");
-            document.body.classList.add("darken");
-          });
-
-          galleryItem.addEventListener("mouseleave", () => {
-            galleryItem.classList.remove("hovered");
-            document.body.classList.remove("darken");
-          });
-
           // Click event to open modal
           galleryItem.addEventListener("click", openModal);
 

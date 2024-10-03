@@ -68,7 +68,7 @@ h1 {
 
 .gallery-item img {
   width: 100%;
-  height: 200px; /* Einheitliche Höhe für alle Bilder */
+  height: 400px; /* Einheitliche Höhe für alle Bilder */
   object-fit: contain; /* Erhält das Seitenverhältnis der Bilder */
   border: 2px solid transparent;
   transition: border 0.2s, transform 0.2s, box-shadow 0.2s;
@@ -93,11 +93,11 @@ h1 {
   transition: opacity 0.5s ease-in-out; /* Sanfter Übergang */
 }
 
-/* Hover-Effekt für Bild */
+/* Hover-Effekt für Bild 
 .gallery-item:hover img {
   border: 2px solid orange;
   box-shadow: 0 8px 12px rgba(255, 165, 0, 0.5);
-}
+}*/
 
 /* Hover-Effekt für Titel */
 .gallery-item:hover h2 {
@@ -272,6 +272,7 @@ h1 {
   .gallery-item {
     width: 100%;
     margin: 10px 0;
+    position: relative; /* Ermöglicht das Positionieren des Titels über dem Bild */
   }
 
   .gallery-item img {
@@ -283,6 +284,22 @@ h1 {
 
   .gallery-item h2 {
     font-size: 1.5em;
+    opacity: 0; /* Titel zunächst unsichtbar */
+    transition: opacity 0.5s ease-in-out;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: yellow;
+  }
+
+  /* Hover-Effekt für mobile Geräte */
+  .gallery-item:hover h2 {
+    opacity: 1;
+    animation: glowAnimation 1.5s infinite alternate;
   }
 
   .modal-content {
