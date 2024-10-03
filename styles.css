@@ -263,7 +263,7 @@ h1 {
 /* Responsives Design */
 
 /* Für Geräte kleiner als Tablets (Mobile Geräte) */
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   .gallery {
     flex-direction: column;
     align-items: center;
