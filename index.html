@@ -2,20 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>My Art Gallery</title>
+    <title>W1LLYW0NKA's Gallery</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Include the selected fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bodoni+Moda:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header>
-      <h1>w1llyw0nka's Gallery</h1>
+      <h1 id="main-heading">
+        W<span class="highlight">1</span>LLYW<span class="highlight">0</span
+        >NKA.SOL
+      </h1>
     </header>
     <main>
       <div class="gallery" id="gallery">
-        <!-- Die Galerie-Elemente werden dynamisch mit JavaScript eingefügt -->
+        <!-- Gallery items will be inserted dynamically via JavaScript -->
       </div>
     </main>
     <footer>
-      <p>&copy; 2023 My Art Gallery</p>
+      <p>&copy; 2024 W1LLYW0NKA'S NFT Gallery</p>
     </footer>
 
     <!-- Modal Window -->
@@ -23,31 +34,36 @@
       <div class="modal-content">
         <span class="close-button">&times;</span>
         <div class="modal-body">
+          <!-- Image on the left -->
           <div class="modal-image-container">
             <img
               id="modal-image"
               src="images/placeholder.jpg"
               alt="Artwork image"
             />
-            <a id="market-button" href="#" target="_blank">MARKETPLACE</a>
           </div>
+          <!-- Information on the right, centered both horizontally and vertically -->
           <div class="modal-info">
-            <h2 id="modal-title"></h2>
-            <p id="modal-artist"></p>
-            <p id="modal-nft-info"></p>
-            <div id="modal-social-links" class="social-links">
-              <a id="modal-twitter" href="#" target="_blank"
-                ><img src="icons/twitter.png" alt="Twitter"
-              /></a>
-              <a id="modal-instagram" href="#" target="_blank"
-                ><img src="icons/instagram.png" alt="Instagram"
-              /></a>
-              <a id="modal-website" href="#" target="_blank"
-                ><img src="icons/website.png" alt="Website"
-              /></a>
-            </div>
-            <div id="modal-marketplaces" class="marketplaces">
-              <!-- Marktplatz-Links werden dynamisch eingefügt -->
+            <div class="modal-info-content">
+              <h2 id="modal-title"></h2>
+              <p id="modal-artist"></p>
+              <div id="modal-social-links" class="social-links">
+                <a id="modal-twitter" href="#" target="_blank"
+                  ><img src="icons/twitter.png" alt="Twitter"
+                /></a>
+                <a id="modal-instagram" href="#" target="_blank"
+                  ><img src="icons/instagram.png" alt="Instagram"
+                /></a>
+                <a id="modal-website" href="#" target="_blank"
+                  ><img src="icons/website.png" alt="Website"
+                /></a>
+              </div>
+              <!-- Marketplace button at the bottom, not horizontally aligned -->
+              <div class="modal-marketplace-button">
+                <a id="marketplace-button" href="#" target="_blank"
+                  >Marketplace Listing</a
+                >
+              </div>
             </div>
           </div>
         </div>

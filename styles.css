@@ -1,15 +1,49 @@
 /* Grundlegendes Styling */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #2b004f; /* Dunkles Königs-Lila */
+  font-family: "Open Sans", Arial, sans-serif;
+  background-color: #000000; /* Hintergrund auf Schwarz geändert */
   color: #ffffff;
 }
 
-header,
+header {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to right, #fdb430, #22003e);
+  color: #ffffff;
+}
+
+header h1 {
+  font-size: 3em;
+  font-weight: 700;
+  margin: 0;
+  font-family: "Bodoni Moda", serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
 footer {
   text-align: center;
   padding: 20px;
+  background-color: #22003e;
+  color: #ffffff;
+  font-family: "Bodoni Moda", serif;
+}
+
+a {
+  color: #ffa500;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+.highlight {
+  font-family: monospace;
+  color: #fdb430;
+  font-size: 1em;
+  transform: rotate(5deg);
 }
 
 h1 {
@@ -21,68 +55,101 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 20px;
+  padding: 30px;
 }
 
 .gallery-item {
-  margin: 10px;
+  margin: 20px;
   text-align: center;
   cursor: pointer;
+  width: 300px; /* Einheitliche Breite für alle Galerie-Items */
+  position: relative; /* Ermöglicht das Positionieren des Titels über dem Bild */
 }
 
-/* Bilder in der Galerie */
 .gallery-item img {
-  max-width: 200px;
+  width: 100%;
+  height: 200px; /* Einheitliche Höhe für alle Bilder */
+  object-fit: contain; /* Erhält das Seitenverhältnis der Bilder */
   border: 2px solid transparent;
   transition: border 0.2s, transform 0.2s, box-shadow 0.2s;
-  border-radius: 10px; /* Abgerundete Ecken */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Schatten */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .gallery-item h2 {
-  font-size: 1em;
-  margin: 10px 0 0 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 10px;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 500;
+  font-size: 2em;
+  text-align: center;
+  color: yellow;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0; /* Titel zunächst unsichtbar */
+  transition: opacity 0.5s ease-in-out; /* Sanfter Übergang */
 }
 
-/* Hover-Effekt */
+/* Hover-Effekt für Bild */
 .gallery-item:hover img {
   border: 2px solid orange;
-  transform: rotate(5deg);
-  box-shadow: 0 8px 12px rgba(255, 165, 0, 0.5); /* Verstärkter Schatten beim Hover */
+  box-shadow: 0 8px 12px rgba(255, 165, 0, 0.5);
+}
+
+/* Hover-Effekt für Titel */
+.gallery-item:hover h2 {
+  opacity: 1; /* Titel einblenden */
+  animation: glowAnimation 1.5s infinite alternate; /* Glühanimation */
+}
+
+/* Glühanimation */
+@keyframes glowAnimation {
+  from {
+    text-shadow: 0 0 10px yellow;
+  }
+  to {
+    text-shadow: 0 0 20px yellow, 0 0 30px yellow;
+  }
 }
 
 /* Modal */
 .modal {
-  display: none; /* Versteckt das Modal standardmäßig */
+  display: none; /* Standardmäßig versteckt */
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+  overflow-y: auto; /* Ermöglicht Scrollen bei Bedarf */
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Modal wird angezeigt */
+/* Modal anzeigen */
 .modal.show {
-  display: flex; /* Macht das Modal sichtbar und wendet Flex-Layout an */
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Modal Content */
+/* Modal-Inhalt */
 .modal-content {
   background-color: #2b004f;
   padding: 20px;
-  border: 1px solid #888;
+  border: 2px solid #fdb430;
   border-radius: 10px;
   width: 90%;
-  max-width: 800px; /* Maximale Breite des Modals */
+  max-width: 800px;
   color: #ffffff;
   position: relative;
-  overflow: auto; /* Ermöglicht Scrollen bei Bedarf */
-  max-height: 90vh; /* Überschreitet nicht 90% der Viewport-Höhe */
+  max-height: 90vh;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: row; /* Standardmäßig nebeneinander */
+  overflow: hidden;
 }
 
 .close-button {
@@ -93,68 +160,50 @@ h1 {
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
+  z-index: 2; /* Stellt sicher, dass die Schließen-Schaltfläche oben liegt */
 }
 
-/* Modal Body */
+/* Modal-Body */
 .modal-body {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-
-#modal-title,
-#modal-artist {
-  color: #fdb430;
-}
-
-/* Container für das Bild und den Button im Modal */
-.modal-image-container {
-  position: relative;
   flex: 1;
-  min-width: 300px;
 }
 
-/* Bild im Modal */
+.modal-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .modal-image-container img {
-  display: block;
-  margin: 0 auto;
   max-width: 100%;
+  max-height: 80vh;
   height: auto;
-  max-height: 60vh;
-  border-radius: 10px; /* Abgerundete Ecken */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Schatten */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  object-fit: contain;
 }
 
-/* 'MARKET'-Button */
-#market-button {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background-color: orange;
-  color: #ffffff;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 5px;
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
-
-#market-button:hover {
-  opacity: 1;
-}
-
-/* Modal Info */
+/* Modal-Info */
 .modal-info {
   flex: 1;
   padding: 20px;
   box-sizing: border-box;
-  color: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-info-content {
+  text-align: center;
 }
 
 .modal-info h2 {
-  font-size: 1.8em;
+  font-size: 2em;
   margin-top: 0;
+  font-family: "Bebas Neue", sans-serif;
 }
 
 .modal-info p {
@@ -162,40 +211,148 @@ h1 {
   margin: 10px 0;
 }
 
-.modal-info .social-links,
-.modal-info .marketplaces {
+#modal-artist {
+  color: #fdb430;
+}
+
+.social-links {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.social-links a,
-.marketplaces a {
+.social-links a {
   display: inline-block;
-  margin-right: 10px;
+  margin: 5px;
 }
 
-.social-links img,
-.marketplaces img {
+.social-links img {
   width: 32px;
   height: 32px;
 }
 
-/* Responsives Design */
-@media (max-width: 768px) {
-  .modal-body {
-    flex-direction: column;
-  }
-
-  .modal-info {
-    padding: 10px;
-  }
+/* Marktplatz-Button */
+.modal-marketplace-button {
+  margin-top: 20px;
 }
 
+.modal-marketplace-button a {
+  display: inline-block;
+  background-color: orange;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.modal-marketplace-button a:hover {
+  background-color: #e69500;
+}
+
+/* Emoji-Styling (falls verwendet) */
+.emoji {
+  position: fixed;
+  font-size: 2em;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Responsives Design */
+
+/* Für Geräte kleiner als Tablets (Mobile Geräte) */
 @media (max-width: 600px) {
+  .gallery {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gallery-item {
+    width: 100%;
+    margin: 10px 0;
+  }
+
   .gallery-item img {
-    max-width: 150px;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .gallery-item h2 {
+    font-size: 1.5em;
   }
 
   .modal-content {
     width: 95%;
+    max-height: 100vh; /* Maximal die Ansichtshöhe */
+    flex-direction: column; /* Inhalte untereinander anordnen */
+  }
+
+  .modal-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-image-container,
+  .modal-info {
+    width: 100%;
+  }
+
+  .modal-image-container img {
+    max-height: 50vh; /* Bildhöhe auf 50% der Ansichtshöhe begrenzen */
+  }
+
+  .modal-info {
+    margin-top: 20px;
+  }
+
+  .modal-info h2 {
+    font-size: 1.8em;
+  }
+
+  .modal-info p {
+    font-size: 1em;
+  }
+
+  .modal-info-content {
+    padding: 0 10px;
+  }
+
+  header h1 {
+    font-size: 2em;
+  }
+}
+
+/* Anpassungen für Tablets */
+@media (max-width: 1024px) and (min-width: 601px) {
+  .modal-content {
+    width: 90%;
+    flex-direction: column; /* Inhalte untereinander anordnen */
+    max-height: 90vh;
+  }
+
+  .modal-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-image-container,
+  .modal-info {
+    width: 100%;
+  }
+
+  .modal-image-container img {
+    max-height: 60vh; /* Bildhöhe anpassen */
+  }
+
+  .modal-info {
+    margin-top: 20px;
+  }
+
+  header h1 {
+    font-size: 2.5em;
   }
 }

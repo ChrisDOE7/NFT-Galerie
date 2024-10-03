@@ -1,20 +1,98 @@
-// Warten, bis das DOM geladen ist
+// Wait for the DOM to load
 document.addEventListener("DOMContentLoaded", function () {
-  // Galerie laden
+  // Load gallery
   loadGallery();
 
-  // Elemente für das Modal auswählen
+  // Select elements for the modal
   const modal = document.getElementById("modal");
   const closeButton = document.querySelector(".close-button");
   const modalImage = document.getElementById("modal-image");
   const modalTitle = document.getElementById("modal-title");
   const modalArtist = document.getElementById("modal-artist");
-  const modalNftInfo = document.getElementById("modal-nft-info");
   const modalTwitter = document.getElementById("modal-twitter");
+  const modalInstagram = document.getElementById("modal-instagram");
   const modalWebsite = document.getElementById("modal-website");
-  const modalMarketplaces = document.getElementById("modal-marketplaces"); // Hinzugefügt
+  const marketplaceButton = document.getElementById("marketplace-button");
 
-  // Funktion zum Laden der Galerie
+  // Check if closeButton is correctly selected
+  if (closeButton) {
+    // Event listener for close button
+    closeButton.addEventListener("click", closeModal);
+  } else {
+    console.error("Close button not found.");
+  }
+
+  // Emoji animation elements (if used)
+  const mainHeading = document.getElementById("main-heading");
+  const emojis = ["🍭", "🍬"];
+  let emojiInterval;
+
+  // Event listener for emoji animation
+  mainHeading.addEventListener("mouseenter", startEmojiRain);
+  mainHeading.addEventListener("mouseleave", stopEmojiRain);
+
+  // Function to start emoji rain
+  function startEmojiRain() {
+    let count = 0;
+    emojiInterval = setInterval(() => {
+      if (count < 10) {
+        createEmoji();
+        count++;
+      } else {
+        clearInterval(emojiInterval);
+      }
+    }, 200);
+  }
+
+  // Function to create an emoji element
+  function createEmoji() {
+    const emoji = document.createElement("div");
+    emoji.classList.add("emoji");
+    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    // Random start position
+    const headingRect = mainHeading.getBoundingClientRect();
+    emoji.style.left =
+      headingRect.left + Math.random() * headingRect.width + "px";
+    emoji.style.top = "-50px";
+
+    // Add emoji to body
+    document.body.appendChild(emoji);
+
+    // Let emoji fall
+    animateEmoji(emoji);
+  }
+
+  // Function to animate emoji falling
+  function animateEmoji(emoji) {
+    let pos = -50;
+    const endPos = window.innerHeight + 50;
+    const duration = Math.random() * 2000 + 2000;
+    let start = null;
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const percent = Math.min(progress / duration, 1);
+      pos = percent * (endPos + 50) - 50;
+      emoji.style.top = pos + "px";
+      if (percent < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        // Remove emoji after animation ends
+        emoji.remove();
+      }
+    }
+
+    window.requestAnimationFrame(step);
+  }
+
+  // Function to stop emoji rain
+  function stopEmojiRain() {
+    clearInterval(emojiInterval);
+  }
+
+  // Function to load gallery
   function loadGallery() {
     fetch("data.json")
       .then((response) => response.json())
@@ -24,23 +102,28 @@ document.addEventListener("DOMContentLoaded", function () {
           const galleryItem = document.createElement("div");
           galleryItem.classList.add("gallery-item");
           galleryItem.dataset.artist = item.artist;
-          galleryItem.dataset.nftinfo = item.nftInfo;
           galleryItem.dataset.twitter = item.twitter;
           galleryItem.dataset.instagram = item.instagram;
           galleryItem.dataset.website = item.website;
           galleryItem.dataset.marketplace = item.marketplace;
-          galleryItem.dataset.exchange = item.exchange;
-          galleryItem.dataset.mallow = item.mallow;
-          galleryItem.dataset.foster = item.foster;
-          galleryItem.dataset.foundation = item.foundation;
-          galleryItem.dataset.objkt = item.objkt;
-          galleryItem.dataset.zora = item.zora;
 
           galleryItem.innerHTML = `
-                          <img src="${item.image}" alt="${item.title}">
-                          <h2>${item.title}</h2>
-                      `;
+            <img src="${item.image}" alt="${item.title}">
+            <h2>${item.title}</h2>
+          `;
 
+          // Add event listeners for hover effects
+          galleryItem.addEventListener("mouseenter", () => {
+            galleryItem.classList.add("hovered");
+            document.body.classList.add("darken");
+          });
+
+          galleryItem.addEventListener("mouseleave", () => {
+            galleryItem.classList.remove("hovered");
+            document.body.classList.remove("darken");
+          });
+
+          // Click event to open modal
           galleryItem.addEventListener("click", openModal);
 
           gallery.appendChild(galleryItem);
@@ -54,46 +137,32 @@ document.addEventListener("DOMContentLoaded", function () {
     const imgSrc = item.querySelector("img").src;
     const title = item.querySelector("h2").innerText;
     const artist = item.dataset.artist;
-    const nftInfo = item.dataset.nftinfo;
     const twitter = item.dataset.twitter;
     const instagram = item.dataset.instagram;
     const website = item.dataset.website;
     const marketplace = item.dataset.marketplace;
-    const exchange = item.dataset.exchange;
-    const mallow = item.dataset.mallow;
-    const foster = item.dataset.foster;
-    const foundation = item.dataset.foundation;
-    const objkt = item.dataset.objkt;
-    const zora = item.dataset.zora;
 
     modalImage.src = imgSrc;
     modalTitle.innerText = title;
-    modalArtist.innerText = "Artist: " + artist;
-    modalNftInfo.innerText = "NFT Info: " + nftInfo;
+    modalArtist.innerText = "by " + artist;
 
     // Social Media Links
     updateSocialLink("modal-twitter", twitter);
     updateSocialLink("modal-instagram", instagram);
     updateSocialLink("modal-website", website);
 
-    // 'MARKET'-Button aktualisieren
-    const marketButton = document.getElementById("market-button");
-    marketButton.href = marketplace;
-
-    // Marktplatz-Links aktualisieren
-    updateMarketplaces({
-      exchange,
-      mallow,
-      foster,
-      foundation,
-      objkt,
-      zora,
-    });
+    // Update marketplace button
+    if (marketplace) {
+      marketplaceButton.style.display = "inline-block";
+      marketplaceButton.href = marketplace;
+    } else {
+      marketplaceButton.style.display = "none";
+    }
 
     modal.classList.add("show");
   }
 
-  // Funktion zum Aktualisieren der Social Media Links
+  // Function to update social media links
   function updateSocialLink(elementId, url) {
     const linkElement = document.getElementById(elementId);
     if (url) {
@@ -104,33 +173,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Funktion zum Aktualisieren der Marktplatz-Links
-  function updateMarketplaces(marketplaces) {
-    modalMarketplaces.innerHTML = ""; // Vorherige Inhalte entfernen
-
-    for (const [marketplaceName, url] of Object.entries(marketplaces)) {
-      if (url) {
-        const link = document.createElement("a");
-        link.href = url;
-        link.target = "_blank";
-        const img = document.createElement("img");
-        img.src = `icons/${marketplaceName}.png`;
-        img.alt = marketplaceName;
-        link.appendChild(img);
-        modalMarketplaces.appendChild(link);
-      }
-    }
-  }
-
-  // Funktion zum Schließen des Modals
+  // Function to close modal
   function closeModal() {
     modal.classList.remove("show");
   }
 
-  // Event Listener für die Schließen-Schaltfläche
-  closeButton.addEventListener("click", closeModal);
-
-  // Schließen des Modals bei Klick außerhalb des Inhalts
+  // Close modal when clicking outside the content
   window.addEventListener("click", function (event) {
     if (event.target == modal) {
       closeModal();
