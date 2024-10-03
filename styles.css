@@ -93,11 +93,11 @@ h1 {
   transition: opacity 0.5s ease-in-out; /* Sanfter Übergang */
 }
 
-/* Hover-Effekt für Bild 
+/* Hover-Effekt für Bild */
 .gallery-item:hover img {
   border: 2px solid orange;
   box-shadow: 0 8px 12px rgba(255, 165, 0, 0.5);
-}*/
+}
 
 /* Hover-Effekt für Titel */
 .gallery-item:hover h2 {

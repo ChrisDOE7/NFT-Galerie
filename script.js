@@ -1,4 +1,5 @@
 // Wait for the DOM to load
+// Wait for the DOM to load
 document.addEventListener("DOMContentLoaded", function () {
   // Load gallery
   loadGallery();
@@ -28,8 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
   let emojiInterval;
 
   // Event listener for emoji animation
-  mainHeading.addEventListener("mouseenter", startEmojiRain);
-  mainHeading.addEventListener("mouseleave", stopEmojiRain);
+  if (mainHeading) {
+    mainHeading.addEventListener("mouseenter", startEmojiRain);
+    mainHeading.addEventListener("mouseleave", stopEmojiRain);
+  }
 
   // Function to start emoji rain
   function startEmojiRain() {
@@ -168,9 +171,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Close modal when clicking outside the content
-  window.addEventListener("click", function (event) {
-    if (event.target == modal) {
+  function handleOutsideClick(event) {
+    if (event.target === modal) {
       closeModal();
     }
-  });
+  }
+
+  // Event listener for clicks outside the modal content
+  modal.addEventListener("click", handleOutsideClick);
+
+  // Event listener for touch events outside the modal content
+  modal.addEventListener("touchstart", handleOutsideClick);
 });
