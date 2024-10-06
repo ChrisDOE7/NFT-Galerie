@@ -3,51 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Meine Galerie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
+  <title>w1llyw0nka's Gallery</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <h1 id="main-heading">Meine Galerie</h1>
+    <a href="https://x.com/_notWillyWonka"><img id="twitter-link" src="icons/twitter.png" alt="X (Fromer Twitter) link"></a>
+    <h1 id="main-heading">W<span class="highlight">1</span>LLYW<span class="highlight">0</span>NKA</h1>
   </header>
   
   <!-- Filter-Buttons -->
   <div class="filter-buttons">
-    <button data-filter="all" class="filter-button active">Alle Kunstwerke</button>
-    <button data-filter="1" class="filter-button">1 von 1</button>
-    <button data-filter="2" class="filter-button">1 von x</button>
+    <button data-filter="all" class="filter-button active">All</button>
+    <button data-filter="1" class="filter-button">1o1's</button>
+    <button data-filter="2" class="filter-button">Editions</button>
   </div>
   
   <div class="gallery" id="gallery">
     <!-- Galerie-Items werden hier dynamisch geladen -->
-    <!-- Beispiel für Künstlergruppe -->
-    <div class="artist-group" data-artist="YNS">
-      <!-- Beispiel für Galerie-Item -->
-      <div class="gallery-item" data-artist="YNS" data-rarity="1" data-twitter="https://twitter.com/artist1" data-instagram="https://instagram.com/artist1" data-website="https://artist1.com" data-marketplace="https://marketplace.com/kunstwerk1">
-        <img src="kunstwerk1.jpg" alt="Thief">
-        <h2>Thief <span>by YNS</span></h2>
-      </div>
-      <div class="gallery-item" data-artist="YNS" data-rarity="2" data-twitter="https://twitter.com/artist1" data-instagram="https://instagram.com/artist1" data-website="https://artist1.com" data-marketplace="https://marketplace.com/kunstwerk2">
-        <img src="kunstwerk2.jpg" alt="Shadow">
-        <h2>Shadow <span>by YNS</span></h2>
-      </div>
-      <div class="gallery-item" data-artist="YNS" data-rarity="1" data-twitter="https://twitter.com/artist1" data-instagram="https://instagram.com/artist1" data-website="https://artist1.com" data-marketplace="https://marketplace.com/kunstwerk4">
-        <img src="kunstwerk4.jpg" alt="Light">
-        <h2>Light <span>by YNS</span></h2>
-      </div>
-    </div>
-    <!-- Weitere Künstlergruppen -->
-    <div class="artist-group" data-artist="ABC">
-      <div class="gallery-item" data-artist="ABC" data-rarity="1" data-twitter="https://twitter.com/artist2" data-instagram="https://instagram.com/artist2" data-website="https://artist2.com" data-marketplace="https://marketplace.com/kunstwerk3">
-        <img src="kunstwerk3.jpg" alt="Sunrise">
-        <h2>Sunrise <span>by ABC</span></h2>
-      </div>
-      <div class="gallery-item" data-artist="ABC" data-rarity="2" data-twitter="https://twitter.com/artist2" data-instagram="https://instagram.com/artist2" data-website="https://artist2.com" data-marketplace="https://marketplace.com/kunstwerk5">
-        <img src="kunstwerk5.jpg" alt="Evening">
-        <h2>Evening <span>by ABC</span></h2>
-      </div>
-    </div>
-    <!-- Weitere Künstlergruppen -->
   </div>
   
   <!-- Modal -->
@@ -57,15 +33,16 @@
       <div class="modal-body">
         <div class="modal-image-container">
           <img id="modal-image" src="" alt="Kunstwerk">
+          <button class="fullscreen-button" id="fullscreen-button">Hi-Res</button>
         </div>
         <div class="modal-info">
           <div class="modal-info-content">
             <h2 id="modal-title">Titel</h2>
             <p id="modal-artist">by Künstler</p>
             <div class="social-links">
-              <a href="#" id="modal-twitter"><img src="twitter-icon.png" alt="Twitter"></a>
-              <a href="#" id="modal-instagram"><img src="instagram-icon.png" alt="Instagram"></a>
-              <a href="#" id="modal-website"><img src="website-icon.png" alt="Website"></a>
+              <a href="#" id="modal-twitter" target="_blank"><img src="icons/twitter.png" alt="Twitter"></a>
+              <a href="#" id="modal-instagram" target="_blank"><img src="icons/instagram.png" alt="Instagram"></a>
+              <a href="#" id="modal-website" target="_blank"><img src="icons/website.png" alt="Website"></a>
             </div>
             <div class="modal-marketplace-button">
               <a href="#" id="marketplace-button">Marktplatz</a>
@@ -76,10 +53,18 @@
     </div>
   </div>
 
+  <!-- Vollbild Modal -->
+  <div class="fullscreen-modal" id="fullscreen-modal">
+    <img id="fullscreen-image" src="" alt="Vollbild Kunstwerk">
+    <button class="close-fullscreen-button" id="close-fullscreen-button">&times;</button>
+  </div>
+  
   <footer>
-    &copy; 2024 Meine Galerie
+    <ul class="artist-list" id="artist-list">
+      <!-- Künstlernamen werden hier dynamisch geladen -->
+    </ul>
   </footer>
-
+  
   <script src="script.js"></script>
 </body>
 </html>

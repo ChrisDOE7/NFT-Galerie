@@ -7,26 +7,59 @@ body {
 }
 
 header {
-  text-align: center;
+  display: flex;
+  align-items: center; /* Vertikale Zentrierung */
+  justify-content: flex-end; /* Inhalte nach links ausrichten */
+  text-align: right;
   padding: 10px 20px; /* Reduziertes Padding */
-  background: linear-gradient(to right, #fdb430, #22003e);
+  background: linear-gradient(to right, black, #22003e);
   color: #ffffff;
+  text-shadow: black;
 }
 
 header h1 {
-  font-size: 2.5em; /* Angepasst für kleinere Abstände */
+  text-align: right; /* Text im Header rechtsbündig */
+  flex-grow: 1; /* Header-Text den verfügbaren Platz einnehmen lassen */
+  font-size: 3em; /* Angepasst für kleinere Abstände */
   font-weight: 700;
   margin: 0;
   font-family: "Bodoni Moda", serif;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5)  
+}
+#twitter-link {
+  height: 30px;
 }
 
 footer {
   text-align: center;
   padding: 10px 20px; /* Reduziertes Padding */
-  background-color: #22003e;
+  background: linear-gradient(to right, #22003e, black);
   color: #ffffff;
   font-family: "Bodoni Moda", serif;
+}
+
+/* Künstlerliste im Footer */
+footer .artist-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+footer .artist-list li {
+  margin: 5px 10px;
+}
+
+footer .artist-list li a {
+  color: #ffa500;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer .artist-list li a:hover {
+  color: #ffffff;
 }
 
 a {
@@ -40,9 +73,10 @@ a:hover {
 }
 
 .highlight {
-  font-family: monospace;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-weight: 1000;
   color: #fdb430;
-  font-size: 1em;
+  font-size: 1.3em;
   transform: rotate(5deg);
 }
 
@@ -57,7 +91,7 @@ h1 {
 }
 
 .filter-button {
-  background-color: #2b004f;
+  background-color: #000000;
   color: #ffffff;
   border: none;
   padding: 8px 16px; /* Reduziertes Padding */
@@ -97,7 +131,6 @@ h1 {
   position: relative; /* Ermöglicht das Positionieren des Titels über dem Bild */
   overflow: hidden; /* Verhindert, dass überlappende Elemente außerhalb des Containers angezeigt werden */
   border-radius: 5px; /* Abgerundete Ecken für das gesamte Galerie-Item */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Reduzierter Schatten */
   flex: 1 1 calc(33.333% - 20px); /* Maximal 3 Bilder pro Reihe mit Abzug der Gap */
   max-width: 33.333%; /* Maximale Breite des Galerie-Items */
   display: flex;
@@ -107,8 +140,8 @@ h1 {
 
 @media (max-width: 1024px) {
   .gallery-item {
-    flex: 1 1 calc(33.333% - 15px); /* Anpassung für Tablets */
-    max-width: calc(33.333% - 15px);
+    flex: 1 1 calc(50% - 10px); /* 2 Bilder pro Reihe auf Tablets */
+    max-width: calc(50% - 10px);
   }
 }
 
@@ -119,12 +152,20 @@ h1 {
   }
 }
 
-.gallery-item img {
+.gallery-item img,
+.image-container {
   width: 100%;
+  margin: auto;
   min-height: 350px; /* Einheitliche Mindesthöhe */
   height: auto; /* Höhe automatisch basierend auf dem Seitenverhältnis */
   object-fit: contain; /* Bild in den Container einpassen, ohne es zu beschneiden */
   transition: transform 0.3s, box-shadow 0.3s;
+  -webkit-user-drag: none; /* Verhindert das Ziehen auf Safari */
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none; /* Verhindert Interaktionen mit dem Bild */
 }
 
 .gallery-item:hover img {
@@ -141,21 +182,12 @@ h1 {
   padding: 8px; /* Reduziertes Padding */
   font-family: "Bebas Neue", sans-serif;
   font-weight: 500;
-  font-size: 1.2em; /* Kleinere Schriftgröße */
+  font-size: 1.8em; /* Kleinere Schriftgröße */
   text-align: center;
-  color: yellow;
+  color: gold;
   background-color: rgba(0, 0, 0, 0.6);
   opacity: 0; /* Titel zunächst unsichtbar */
   transition: opacity 0.5s ease-in-out; /* Sanfter Übergang */
-}
-
-.gallery-item h2 span {
-  display: block;
-  font-size: 0.5em; /* Kleinere Schriftgröße für den Künstlernamen */
-  color: #ffffff; /* Weiße Schriftfarbe für den Künstlernamen */
-  font-weight: 400; /* Normalgewicht für den Künstlernamen */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Textschatten für bessere Lesbarkeit */
-  margin-top: 3px; /* Weniger Abstand zwischen Titel und Künstlername */
 }
 
 /* Hover-Effekt für Titel */
@@ -196,7 +228,7 @@ h1 {
 
 /* Modal-Inhalt */
 .modal-content {
-  background-color: #2b004f;
+  background-color: #000000;
   padding: 15px; /* Reduziertes Padding */
   border: 2px solid #fdb430;
   border-radius: 8px; /* Reduzierte Rundung */
@@ -216,10 +248,72 @@ h1 {
   position: absolute;
   top: 10px;
   right: 15px; /* Reduzierter Abstand */
-  font-size: 25px; /* Kleinere Schriftgröße */
+  font-size: 30px; /* Kleinere Schriftgröße */
   font-weight: bold;
   cursor: pointer;
   z-index: 2; /* Stellt sicher, dass die Schließen-Schaltfläche oben liegt */
+}
+
+/* Vollbild-Button */
+.fullscreen-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: linear-gradient(to top right, #00FFBD,black, #C500E9);
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.9em;
+  transition: background-color 0.3s;
+}
+
+.fullscreen-button:hover {
+  background-color: rgba(255, 165, 0, 0.8);
+}
+
+/* Vollbild-Ansicht */
+.fullscreen-modal {
+  display: none; /* Standardmäßig versteckt */
+  position: fixed;
+  z-index: 2; /* Über dem normalen Modal */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9); /* Dunkler Hintergrund */
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen-modal.show {
+  display: flex;
+}
+
+.fullscreen-modal img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.close-fullscreen-button {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.3em;
+  transition: background-color 0.3s;
+}
+
+.close-fullscreen-button:hover {
+  background-color: rgba(255, 165, 0, 0.8);
 }
 
 /* Modal-Body */
@@ -236,7 +330,6 @@ h1 {
   max-height: 60vh; /* Angepasste maximale Höhe */
   height: auto;
   border-radius: 5px; /* Reduzierte Rundung */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   object-fit: contain;
 }
 
@@ -255,18 +348,17 @@ h1 {
 }
 
 .modal-info h2 {
-  font-size: 1.8em; /* Kleinere Schriftgröße */
+  font-size: 4em; /* Größere Schriftgröße */
+  color: gold;
   margin-top: 0;
+  margin-bottom: 0;
   font-family: "Bebas Neue", sans-serif;
 }
 
 .modal-info p {
-  font-size: 0.9em; /* Kleinere Schriftgröße */
+  font-family: "Bodoni Moda", serif;
+  font-size: 1.1em; /* Kleinere Schriftgröße */
   margin: 8px 0;
-}
-
-#modal-artist {
-  color: #fdb430;
 }
 
 .social-links {
@@ -317,7 +409,7 @@ h1 {
 /* Responsives Design */
 
 /* Für Geräte kleiner als Tablets (Mobile Geräte) */
-@media (max-width: 1000px) {
+@media (max-width: 600px) {
   .gallery-item {
     flex: 1 1 100%; /* 1 Bild pro Reihe auf kleinen Geräten */
     max-width: 100%;
@@ -365,7 +457,7 @@ h1 {
   }
 
   .modal-image-container img {
-    max-height: 50vh; /* Bildhöhe auf 50% der Ansichtshöhe begrenzen */
+    max-height: 60vh; /* Bildhöhe auf 50% der Ansichtshöhe begrenzen */
   }
 
   .modal-info {
@@ -391,6 +483,11 @@ h1 {
 
 /* Anpassungen für Tablets */
 @media (max-width: 1024px) and (min-width: 601px) {
+  .gallery-item {
+    flex: 1 1 calc(50% - 10px); /* 2 Bilder pro Reihe auf Tablets */
+    max-width: calc(50% - 10px);
+  }
+
   .modal-content {
     width: 90%;
     flex-direction: column; /* Inhalte untereinander anordnen */
