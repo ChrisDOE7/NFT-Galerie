@@ -8,13 +8,13 @@ body {
 
 header {
   text-align: center;
-  padding: 20px;
+  padding: 10px 20px; /* Reduziertes Padding */
   background: linear-gradient(to right, #fdb430, #22003e);
   color: #ffffff;
 }
 
 header h1 {
-  font-size: 3em;
+  font-size: 2.5em; /* Angepasst für kleinere Abstände */
   font-weight: 700;
   margin: 0;
   font-family: "Bodoni Moda", serif;
@@ -23,7 +23,7 @@ header h1 {
 
 footer {
   text-align: center;
-  padding: 20px;
+  padding: 10px 20px; /* Reduziertes Padding */
   background-color: #22003e;
   color: #ffffff;
   font-family: "Bodoni Moda", serif;
@@ -50,42 +50,98 @@ h1 {
   margin: 0;
 }
 
+/* Filter-Buttons Styling */
+.filter-buttons {
+  text-align: center;
+  margin: 10px 0; /* Reduziertes Margin */
+}
+
+.filter-button {
+  background-color: #2b004f;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px; /* Reduziertes Padding */
+  margin: 0 5px; /* Reduziertes Margin */
+  cursor: pointer;
+  font-size: 0.9em; /* Kleinere Schriftgröße */
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.filter-button:hover,
+.filter-button.active {
+  background-color: #fdb430;
+  color: #000000;
+}
+
 /* Galerie-Layout */
 .gallery {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 30px;
+  flex-direction: column;
+  gap: 20px; /* Reduzierter Zwischenraum */
+  padding: 10px 10px; /* Minimales Padding links und rechts */
+  max-width: 100%; /* Volle Breite nutzen */
+  margin: 0 auto; /* Zentriert die Galerie horizontal */
 }
 
+/* Stil für Künstlergruppen */
+.artist-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Reduzierter Zwischenraum zwischen den Bildern */
+  justify-content: center; /* Zentriert die Gruppe */
+}
+
+/* Galerie-Item Styling */
 .gallery-item {
-  margin: 20px;
-  text-align: center;
-  cursor: pointer;
-  width: 300px; /* Einheitliche Breite für alle Galerie-Items */
   position: relative; /* Ermöglicht das Positionieren des Titels über dem Bild */
+  overflow: hidden; /* Verhindert, dass überlappende Elemente außerhalb des Containers angezeigt werden */
+  border-radius: 5px; /* Abgerundete Ecken für das gesamte Galerie-Item */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Reduzierter Schatten */
+  flex: 1 1 calc(33.333% - 20px); /* Maximal 3 Bilder pro Reihe mit Abzug der Gap */
+  max-width: 33.333%; /* Maximale Breite des Galerie-Items */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .gallery-item {
+    flex: 1 1 calc(33.333% - 15px); /* Anpassung für Tablets */
+    max-width: calc(33.333% - 15px);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-item {
+    flex: 1 1 100%; /* 1 Bild pro Reihe auf kleinen Geräten */
+    max-width: 100%;
+  }
 }
 
 .gallery-item img {
   width: 100%;
-  height: 400px; /* Einheitliche Höhe für alle Bilder */
-  object-fit: contain; /* Erhält das Seitenverhältnis der Bilder */
-  border: 2px solid transparent;
-  transition: border 0.2s, transform 0.2s, box-shadow 0.2s;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  min-height: 350px; /* Einheitliche Mindesthöhe */
+  height: auto; /* Höhe automatisch basierend auf dem Seitenverhältnis */
+  object-fit: contain; /* Bild in den Container einpassen, ohne es zu beschneiden */
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.gallery-item:hover img {
+  transform: scale(1.05); /* Leichtes Vergrößern beim Hover */
+}
+
+/* Titel und Künstlername */
 .gallery-item h2 {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   margin: 0;
-  padding: 10px;
+  padding: 8px; /* Reduziertes Padding */
   font-family: "Bebas Neue", sans-serif;
   font-weight: 500;
-  font-size: 2em;
+  font-size: 1.2em; /* Kleinere Schriftgröße */
   text-align: center;
   color: yellow;
   background-color: rgba(0, 0, 0, 0.6);
@@ -93,10 +149,13 @@ h1 {
   transition: opacity 0.5s ease-in-out; /* Sanfter Übergang */
 }
 
-/* Hover-Effekt für Bild */
-.gallery-item:hover img {
-  border: 2px solid orange;
-  box-shadow: 0 8px 12px rgba(255, 165, 0, 0.5);
+.gallery-item h2 span {
+  display: block;
+  font-size: 0.5em; /* Kleinere Schriftgröße für den Künstlernamen */
+  color: #ffffff; /* Weiße Schriftfarbe für den Künstlernamen */
+  font-weight: 400; /* Normalgewicht für den Künstlernamen */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Textschatten für bessere Lesbarkeit */
+  margin-top: 3px; /* Weniger Abstand zwischen Titel und Künstlername */
 }
 
 /* Hover-Effekt für Titel */
@@ -125,7 +184,7 @@ h1 {
   width: 100%;
   height: 100%;
   overflow-y: auto; /* Ermöglicht Scrollen bei Bedarf */
-  background-color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.8); /* Einfache schwarze Transparenz */
 }
 
 /* Modal anzeigen */
@@ -138,17 +197,17 @@ h1 {
 /* Modal-Inhalt */
 .modal-content {
   background-color: #2b004f;
-  padding: 20px;
+  padding: 15px; /* Reduziertes Padding */
   border: 2px solid #fdb430;
-  border-radius: 10px;
+  border-radius: 8px; /* Reduzierte Rundung */
   width: 90%;
-  max-width: 800px;
+  max-width: 700px; /* Angepasste maximale Breite */
   color: #ffffff;
   position: relative;
   max-height: 90vh;
   box-sizing: border-box;
   display: flex;
-  flex-direction: row; /* Standardmäßig nebeneinander */
+  flex-direction: column; /* Inhalte untereinander anordnen für Flexbox */
   overflow: hidden;
 }
 
@@ -156,8 +215,8 @@ h1 {
   color: #ffffff;
   position: absolute;
   top: 10px;
-  right: 20px;
-  font-size: 30px;
+  right: 15px; /* Reduzierter Abstand */
+  font-size: 25px; /* Kleinere Schriftgröße */
   font-weight: bold;
   cursor: pointer;
   z-index: 2; /* Stellt sicher, dass die Schließen-Schaltfläche oben liegt */
@@ -166,34 +225,29 @@ h1 {
 /* Modal-Body */
 .modal-body {
   display: flex;
-  flex: 1;
-}
-
-.modal-image-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+  flex-direction: column; /* Inhalte untereinander */
   align-items: center;
+  gap: 15px; /* Abstand zwischen Bild und Info */
 }
 
+/* Modal-Image-Container */
 .modal-image-container img {
-  max-width: 100%;
-  max-height: 80vh;
+  width: 100%;
+  max-height: 60vh; /* Angepasste maximale Höhe */
   height: auto;
-  border-radius: 10px;
+  border-radius: 5px; /* Reduzierte Rundung */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   object-fit: contain;
 }
 
 /* Modal-Info */
 .modal-info {
-  flex: 1;
-  padding: 20px;
+  width: 100%;
+  padding: 10px; /* Reduziertes Padding */
   box-sizing: border-box;
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
 
 .modal-info-content {
@@ -201,14 +255,14 @@ h1 {
 }
 
 .modal-info h2 {
-  font-size: 2em;
+  font-size: 1.8em; /* Kleinere Schriftgröße */
   margin-top: 0;
   font-family: "Bebas Neue", sans-serif;
 }
 
 .modal-info p {
-  font-size: 1em;
-  margin: 10px 0;
+  font-size: 0.9em; /* Kleinere Schriftgröße */
+  margin: 8px 0;
 }
 
 #modal-artist {
@@ -216,35 +270,35 @@ h1 {
 }
 
 .social-links {
-  margin-top: 20px;
+  margin-top: 15px; /* Reduziertes Margin */
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 10px; /* Abstand zwischen den Links */
 }
 
 .social-links a {
   display: inline-block;
-  margin: 5px;
 }
 
 .social-links img {
-  width: 32px;
-  height: 32px;
+  width: 28px; /* Kleinere Icons */
+  height: 28px;
 }
 
 /* Marktplatz-Button */
 .modal-marketplace-button {
-  margin-top: 20px;
+  margin-top: 15px; /* Reduziertes Margin */
 }
 
 .modal-marketplace-button a {
   display: inline-block;
   background-color: orange;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 8px 16px; /* Reduziertes Padding */
   text-decoration: none;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: 4px; /* Kleinere Rundung */
   transition: background-color 0.2s;
 }
 
@@ -264,42 +318,39 @@ h1 {
 
 /* Für Geräte kleiner als Tablets (Mobile Geräte) */
 @media (max-width: 1000px) {
-  .gallery {
-    flex-direction: column;
-    align-items: center;
-  }
-
   .gallery-item {
-    width: 100%;
-    margin: 10px 0;
-    position: relative; /* Ermöglicht das Positionieren des Titels über dem Bild */
-  }
-
-  .gallery-item img {
+    flex: 1 1 100%; /* 1 Bild pro Reihe auf kleinen Geräten */
     max-width: 100%;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
   }
 
   .gallery-item h2 {
-    font-size: 1.5em;
-    opacity: 0; /* Titel zunächst unsichtbar */
-    transition: opacity 0.5s ease-in-out;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.6);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    color: yellow;
+    position: relative; /* Relativ positioniert für mobile Ansicht */
+    opacity: 1; /* Titel dauerhaft sichtbar */
+    font-size: 1.4em; /* Größere Schriftgröße */
+    padding: 10px; /* Reduziertes Padding */
+    background-color: rgba(0, 0, 0, 0.6); /* Hintergrund bleibt */
   }
 
-  /* Hover-Effekt für mobile Geräte */
+  .gallery-item h2 span {
+    font-size: 0.8em; /* Größere Schriftgröße für Künstlernamen */
+    margin-top: 5px; /* Mehr Abstand zwischen Titel und Künstlername */
+  }
+
+  /* Entfernen des Hover-Effekts auf mobilen Geräten */
   .gallery-item:hover h2 {
     opacity: 1;
-    animation: glowAnimation 1.5s infinite alternate;
+    animation: none; /* Keine Animation auf mobilen Geräten */
+  }
+
+  .gallery {
+    padding: 5px 5px; /* Minimales Padding */
+    margin: 0 5px; /* Minimale Ränder */
+    gap: 15px; /* Weniger Zwischenraum */
+  }
+
+  .artist-group {
+    gap: 10px; /* Weniger Zwischenraum zwischen den Bildern */
+    justify-content: center; /* Zentriert einzelne oder zwei Bilder */
   }
 
   .modal-content {
@@ -313,33 +364,28 @@ h1 {
     align-items: center;
   }
 
-  .modal-image-container,
-  .modal-info {
-    width: 100%;
-  }
-
   .modal-image-container img {
     max-height: 50vh; /* Bildhöhe auf 50% der Ansichtshöhe begrenzen */
   }
 
   .modal-info {
-    margin-top: 20px;
+    margin-top: 10px; /* Reduziertes Margin */
   }
 
   .modal-info h2 {
-    font-size: 1.8em;
+    font-size: 1.5em; /* Größere Schriftgröße */
   }
 
   .modal-info p {
-    font-size: 1em;
+    font-size: 0.9em; /* Kleinere Schriftgröße */
   }
 
   .modal-info-content {
-    padding: 0 10px;
+    padding: 0 5px; /* Reduziertes Padding */
   }
 
   header h1 {
-    font-size: 2em;
+    font-size: 1.8em; /* Kleinere Schriftgröße */
   }
 }
 
@@ -356,20 +402,15 @@ h1 {
     align-items: center;
   }
 
-  .modal-image-container,
-  .modal-info {
-    width: 100%;
-  }
-
   .modal-image-container img {
     max-height: 60vh; /* Bildhöhe anpassen */
   }
 
   .modal-info {
-    margin-top: 20px;
+    margin-top: 10px; /* Reduziertes Margin */
   }
 
   header h1 {
-    font-size: 2.5em;
+    font-size: 2em; /* Angepasste Schriftgröße */
   }
 }

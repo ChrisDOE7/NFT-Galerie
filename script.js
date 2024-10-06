@@ -1,10 +1,134 @@
-// Wait for the DOM to load
-// Wait for the DOM to load
+// script.js
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Load gallery
+  // Elemente für den Filter
+  const filterButtons = document.querySelectorAll('.filter-button');
+
+  // Galerie laden
   loadGallery();
 
-  // Select elements for the modal
+  // Event Listener für Filter-Buttons
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      // Entferne aktive Klasse von allen Buttons
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      // Füge aktive Klasse zum geklickten Button hinzu
+      this.classList.add('active');
+      // Filter anwenden
+      const filter = this.getAttribute('data-filter');
+      filterGallery(filter);
+    });
+  });
+
+  // Funktion zum Laden der Galerie
+  function loadGallery() {
+    fetch("data.json")
+      .then(response => response.json())
+      .then(data => {
+        // Gruppieren nach Künstler
+        const artists = groupByArtist(data);
+        // Zufällige Reihenfolge der Künstler
+        const shuffledArtists = shuffleArray(Object.keys(artists));
+        // Rendern der Galerie
+        const gallery = document.getElementById("gallery");
+        gallery.innerHTML = ''; // Leeren der Galerie
+
+        shuffledArtists.forEach(artist => {
+          const artistGroup = artists[artist];
+          const artistContainer = document.createElement("div");
+          artistContainer.classList.add("artist-group");
+          artistContainer.dataset.artist = artist;
+
+          artistGroup.forEach(item => {
+            const galleryItem = document.createElement("div");
+            galleryItem.classList.add("gallery-item");
+            galleryItem.dataset.artist = item.artist;
+            galleryItem.dataset.rarity = item.rarity;
+            galleryItem.dataset.twitter = item.twitter;
+            galleryItem.dataset.instagram = item.instagram;
+            galleryItem.dataset.website = item.website;
+            galleryItem.dataset.marketplace = item.marketplace;
+
+            // Inklusive Künstlername im Titel
+            galleryItem.innerHTML = `
+              <img src="${item.image}" alt="${item.title}">
+              <h2>${item.title} <span>by ${item.artist}</span></h2>
+            `;
+
+            // Click event to open modal
+            galleryItem.addEventListener("click", openModal);
+
+            artistContainer.appendChild(galleryItem);
+          });
+
+          gallery.appendChild(artistContainer);
+        });
+      })
+      .catch(error => console.error("Error loading gallery:", error));
+  }
+
+  // Funktion zum Gruppieren nach Künstler
+  function groupByArtist(data) {
+    return data.reduce((groups, item) => {
+      const artist = item.artist;
+      if (!groups[artist]) {
+        groups[artist] = [];
+      }
+      groups[artist].push(item);
+      return groups;
+    }, {});
+  }
+
+  // Funktion zum Zufällig mischen eines Arrays
+  function shuffleArray(array) {
+    let currentIndex = array.length, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+  }
+
+  // Funktion zum Filtern der Galerie
+  function filterGallery(filter) {
+    const artistGroups = document.querySelectorAll('.artist-group');
+
+    artistGroups.forEach(group => {
+      const items = group.querySelectorAll('.gallery-item');
+      let showGroup = false;
+
+      items.forEach(item => {
+        if (filter === 'all') {
+          item.style.display = 'flex';
+          showGroup = true;
+        } else {
+          if (item.dataset.rarity === filter) {
+            item.style.display = 'flex';
+            showGroup = true;
+          } else {
+            item.style.display = 'none';
+          }
+        }
+      });
+
+      if (showGroup) {
+        group.style.display = 'flex';
+      } else {
+        group.style.display = 'none';
+      }
+    });
+  }
+
+  // Modal-Funktionalität
   const modal = document.getElementById("modal");
   const closeButton = document.querySelector(".close-button");
   const modalImage = document.getElementById("modal-image");
@@ -15,115 +139,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalWebsite = document.getElementById("modal-website");
   const marketplaceButton = document.getElementById("marketplace-button");
 
-  // Check if closeButton is correctly selected
+  // Event listener für close button
   if (closeButton) {
-    // Event listener for close button
     closeButton.addEventListener("click", closeModal);
   } else {
     console.error("Close button not found.");
   }
 
-  // Emoji animation elements (if used)
-  const mainHeading = document.getElementById("main-heading");
-  const emojis = ["🍭", "🍬"];
-  let emojiInterval;
-
-  // Event listener for emoji animation
-  if (mainHeading) {
-    mainHeading.addEventListener("mouseenter", startEmojiRain);
-    mainHeading.addEventListener("mouseleave", stopEmojiRain);
-  }
-
-  // Function to start emoji rain
-  function startEmojiRain() {
-    let count = 0;
-    emojiInterval = setInterval(() => {
-      if (count < 10) {
-        createEmoji();
-        count++;
-      } else {
-        clearInterval(emojiInterval);
-      }
-    }, 200);
-  }
-
-  // Function to create an emoji element
-  function createEmoji() {
-    const emoji = document.createElement("div");
-    emoji.classList.add("emoji");
-    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-
-    // Random start position
-    const headingRect = mainHeading.getBoundingClientRect();
-    emoji.style.left =
-      headingRect.left + Math.random() * headingRect.width + "px";
-    emoji.style.top = "-50px";
-
-    // Add emoji to body
-    document.body.appendChild(emoji);
-
-    // Let emoji fall
-    animateEmoji(emoji);
-  }
-
-  // Function to animate emoji falling
-  function animateEmoji(emoji) {
-    let pos = -50;
-    const endPos = window.innerHeight + 50;
-    const duration = Math.random() * 2000 + 2000;
-    let start = null;
-
-    function step(timestamp) {
-      if (!start) start = timestamp;
-      const progress = timestamp - start;
-      const percent = Math.min(progress / duration, 1);
-      pos = percent * (endPos + 50) - 50;
-      emoji.style.top = pos + "px";
-      if (percent < 1) {
-        window.requestAnimationFrame(step);
-      } else {
-        // Remove emoji after animation ends
-        emoji.remove();
-      }
-    }
-
-    window.requestAnimationFrame(step);
-  }
-
-  // Function to stop emoji rain
-  function stopEmojiRain() {
-    clearInterval(emojiInterval);
-  }
-
-  // Function to load gallery
-  function loadGallery() {
-    fetch("data.json")
-      .then((response) => response.json())
-      .then((data) => {
-        const gallery = document.getElementById("gallery");
-        data.forEach((item) => {
-          const galleryItem = document.createElement("div");
-          galleryItem.classList.add("gallery-item");
-          galleryItem.dataset.artist = item.artist;
-          galleryItem.dataset.twitter = item.twitter;
-          galleryItem.dataset.instagram = item.instagram;
-          galleryItem.dataset.website = item.website;
-          galleryItem.dataset.marketplace = item.marketplace;
-
-          galleryItem.innerHTML = `
-            <img src="${item.image}" alt="${item.title}">
-            <h2>${item.title}</h2>
-          `;
-
-          // Click event to open modal
-          galleryItem.addEventListener("click", openModal);
-
-          gallery.appendChild(galleryItem);
-        });
-      })
-      .catch((error) => console.error("Error loading gallery:", error));
-  }
-
+  // Funktion zum Öffnen des Modals
   function openModal(event) {
     const item = event.currentTarget;
     const imgSrc = item.querySelector("img").src;
@@ -154,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.classList.add("show");
   }
 
-  // Function to update social media links
+  // Funktion zum Aktualisieren der Social Media Links
   function updateSocialLink(elementId, url) {
     const linkElement = document.getElementById(elementId);
     if (url) {
@@ -165,21 +188,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Function to close modal
+  // Funktion zum Schließen des Modals
   function closeModal() {
     modal.classList.remove("show");
   }
 
-  // Close modal when clicking outside the content
-  function handleOutsideClick(event) {
-    if (event.target === modal) {
+  // Schließen des Modals beim Klicken außerhalb des Inhalts
+  window.addEventListener("click", function (event) {
+    if (event.target == modal) {
       closeModal();
     }
-  }
-
-  // Event listener for clicks outside the modal content
-  modal.addEventListener("click", handleOutsideClick);
-
-  // Event listener for touch events outside the modal content
-  modal.addEventListener("touchstart", handleOutsideClick);
+  });
 });
