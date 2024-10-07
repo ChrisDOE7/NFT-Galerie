@@ -7,27 +7,37 @@ body {
 }
 
 header {
-  display: flex;
-  align-items: center; /* Vertikale Zentrierung */
-  justify-content: flex-end; /* Inhalte nach links ausrichten */
-  text-align: right;
-  padding: 10px 20px; /* Reduziertes Padding */
+  position: relative;
+  padding: 10px 20px;
   background: linear-gradient(to right, black, #22003e);
   color: #ffffff;
-  text-shadow: black;
+  text-align: center;
 }
 
 header h1 {
-  text-align: right; /* Text im Header rechtsbündig */
-  flex-grow: 1; /* Header-Text den verfügbaren Platz einnehmen lassen */
-  font-size: 3em; /* Angepasst für kleinere Abstände */
-  font-weight: 700;
   margin: 0;
-  font-family: "Bodoni Moda", serif;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5)  
+  font-size: 4em;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-family: "Bebas Neue", sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
+
 #twitter-link {
+  position: absolute;
+  top: 50%;
+  right: 20px; /* Entspricht dem rechten Padding des Headers */
+  transform: translateY(-50%);
+}
+
+#twitter-link img {
   height: 30px;
+  justify-content: right;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Schatten hinzufügen */
+}
+
+#twitter-link img:hover {
+  opacity: 0.8;
 }
 
 footer {
@@ -38,8 +48,22 @@ footer {
   font-family: "Bodoni Moda", serif;
 }
 
+.follow-button {
+  background-color: gold; /* Ändere die Farbe hier (z.B. grün) */
+    color: black; /* Textfarbe */
+    padding: 10px 20px; /* Innenabstand */
+    border: none; /* Entfernt den Standardrahmen */
+    border-radius: 5px; /* Abgerundete Ecken */
+    cursor: pointer; /* Zeiger wird beim Überfahren angezeigt */
+    pointer-events: auto; /* Stelle sicher, dass der Button klickbar ist */
+    position: relative; /* Stelle sicher, dass der Button relativ positioniert ist */
+    z-index: 10; /* Höherer Z-Index, um sicherzustellen, dass der Button oben ist */
+}
+
+
 /* Künstlerliste im Footer */
 footer .artist-list {
+  font-size: 0.8em;
   list-style: none;
   padding: 0;
   margin: 10px 0 0 0;
@@ -74,10 +98,11 @@ a:hover {
 
 .highlight {
   /* font-family: "Bebas Neue", sans-serif; */
-  font-weight: 1000;
+  display: inline-block; /* Damit die Transformation funktioniert */
+    transform: rotate(+5deg); /* Grad der Drehung (z.B. -5 Grad) */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Schatten hinzufügen */
+    margin: 0 2px; /* Abstand zwischen den Buchstaben */
   color: #fdb430;
-  font-size: 1.3em;
-  transform: rotate(5deg);
 }
 
 h1 {
@@ -118,6 +143,16 @@ h1 {
   margin: 0 auto; /* Zentriert die Galerie horizontal */
 }
 
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  pointer-events: none; /* Wichtig, damit Klicks durchgehen */
+}
+
 /* Stil für Künstlergruppen */
 .artist-group {
   display: flex;
@@ -152,8 +187,17 @@ h1 {
   }
 }
 
-.gallery-item img,
-.image-container {
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2em;
+  }
+
+  #twitter-link img {
+    height: 25px;
+  }
+}
+
+.gallery-item img {
   width: 100%;
   margin: auto;
   min-height: 350px; /* Einheitliche Mindesthöhe */
@@ -348,7 +392,7 @@ h1 {
 }
 
 .modal-info h2 {
-  font-size: 5em; /* Größere Schriftgröße */
+  font-size: 3em; /* Größere Schriftgröße */
   color: gold;
   margin-top: 0;
   margin-bottom: 0;
@@ -421,11 +465,6 @@ h1 {
     font-size: 1.4em; /* Größere Schriftgröße */
     padding: 10px; /* Reduziertes Padding */
     background-color: rgba(0, 0, 0, 0.6); /* Hintergrund bleibt */
-  }
-
-  .gallery-item h2 span {
-    font-size: 0.8em; /* Größere Schriftgröße für Künstlernamen */
-    margin-top: 5px; /* Mehr Abstand zwischen Titel und Künstlername */
   }
 
   /* Entfernen des Hover-Effekts auf mobilen Geräten */

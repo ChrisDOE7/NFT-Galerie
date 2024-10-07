@@ -54,6 +54,12 @@ document.addEventListener("DOMContentLoaded", function () {
             galleryItem.dataset.marketplace = item.marketplace;
             galleryItem.dataset.image = item.image; // Setzt das 'image' Attribut für Vollbild
 
+            // Erstellen des Bild-Elements mit 'alt' und 'loading' Attributen
+            const imgElement = document.createElement("img");
+            imgElement.src = item.imageSmall;
+            imgElement.alt = `${item.title} by ${item.artist}`;
+            imgElement.loading = "lazy";
+
             // Inklusive Künstlername im Titel
             galleryItem.innerHTML = `
               <img src="${item.imageSmall}" alt="${item.title}">
@@ -242,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Verhindert das Rechtsklicken auf Bilder und Long-Press auf mobilen Geräten
-  const images = document.querySelectorAll('.gallery-item img, .image-container, #modal-image, #fullscreen-image');
+  const images = document.querySelectorAll('.image-container, #modal-image, #fullscreen-image');
   images.forEach(img => {
     img.addEventListener('contextmenu', function (e) {
       e.preventDefault();
@@ -263,11 +269,14 @@ document.addEventListener("DOMContentLoaded", function () {
         data.forEach(item => {
           artistSet.add(item.artist);
         });
-
+  
         const artistList = document.getElementById("artist-list");
         artistList.innerHTML = ''; // Leeren der Liste
-
-        artistSet.forEach(artist => {
+  
+        // Set in ein Array umwandeln und alphabetisch sortieren
+        const sortedArtists = Array.from(artistSet).sort((a, b) => a.localeCompare(b));
+  
+        sortedArtists.forEach(artist => {
           const listItem = document.createElement("li");
           const link = document.createElement("a");
           link.href = `#artist-${artist}`;
